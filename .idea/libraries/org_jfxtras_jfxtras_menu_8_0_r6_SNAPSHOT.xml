@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.jfxtras:jfxtras-menu:8.0-r6-SNAPSHOT" type="repository">
+    <properties maven-id="org.jfxtras:jfxtras-menu:8.0-r6-SNAPSHOT" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jfxtras/jfxtras-menu/8.0-r6-SNAPSHOT/jfxtras-menu-8.0-r6-SNAPSHOT.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jfxtras/jfxtras-common/8.0-r6-SNAPSHOT/jfxtras-common-8.0-r6-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

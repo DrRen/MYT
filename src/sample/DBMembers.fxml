@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="644.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DBMembersController">
+   <children>
+      <VBox maxHeight="64.0" prefHeight="64.0" prefWidth="458.0" VBox.vgrow="NEVER">
+         <children>
+            <MenuBar VBox.vgrow="NEVER">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#MenuSave" text="Сохранить">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#exitAction" text="Сохранить">
+                           <accelerator>
+                              <KeyCodeCombination alt="ANY" code="ESCAPE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="286.0" prefWidth="458.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Region prefHeight="39.0" prefWidth="356.0" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Печать">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="784.0" prefWidth="882.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="dbTable" editable="true" layoutY="5.0" minHeight="400.0" minWidth="400.0" prefHeight="843.0" prefWidth="862.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#AddMemberAction" text="Добавить нового преподавателя">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#EditMemberAction" text="Редактировать преподавателя">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#DelNewMemberAction" text="Удалить преподавателя" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+            <AnchorPane fx:id="sidePanel" layoutX="971.0" minWidth="362.0" prefHeight="570.0" prefWidth="362.0" style="-fx-background-color: #F4F4F4;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox layoutX="11.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <OctIconView fx:id="extArrow" glyphName="TRIANGLE_LEFT" onMouseClicked="#extArrowAction" size="17.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </OctIconView>
+                        <Separator orientation="VERTICAL" prefHeight="435.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets left="3.0" />
+                           </VBox.margin>
+                        </Separator>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="24.0" maxWidth="350.0" prefHeight="460.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox minHeight="50.0" minWidth="0.0" prefHeight="50.0" prefWidth="401.0" />
+                        <ScrollPane fx:id="adEdBase" hbarPolicy="NEVER" minWidth="0.0" prefHeight="844.0" prefWidth="527.0" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox fx:id="adEdPanel" alignment="TOP_RIGHT" minWidth="0.0" prefHeight="800.0" prefWidth="336.0">
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
