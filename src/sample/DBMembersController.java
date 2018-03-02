@@ -1,73 +1,80 @@
 package sample;
 
 
-import de.jensd.fx.glyphs.octicons.OctIconView;
-import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class DBMembersController {
 
+    Stage stage;
+
     @FXML
-    private MenuItem exitButton;
-    @FXML
-    private TableView<Map> dbTable;
-    @FXML
-    private ScrollPane adEdBase;
-    @FXML
-    private VBox adEdPanel;
-    @FXML
-    private OctIconView extArrow;
-    @FXML
-    private AnchorPane sidePanel;
+    public TableView<Map> dbTable;
 
     private int COLCOUNT;
     private String[] ColNames;
-    private String[] colKeys = new String[32];
+    public String[] colKeys = new String[32];
     private String fileName = "Prepod.csv";
     private File file = new File(fileName);
 
-    public void EditMemberAction() {
+    public void EditMemberAction() throws IOException {
+        AddEditMemberController addEditMemberController;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEditMember.fxml"));
 
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage addStage = new Stage();
+
+        addStage.setScene(scene);
+        addStage.show();
+
+        addEditMemberController = loader.getController();
+        addEditMemberController.stage = addStage;
+        addEditMemberController.columns = dbTable.getColumns();
+        addEditMemberController.dbmemberscontroller = this;
+        addEditMemberController.state = true;
+        addEditMemberController.item = dbTable.getSelectionModel().getSelectedItem();
+        addEditMemberController.itemIndex = dbTable.getSelectionModel().getSelectedIndex();
+        addEditMemberController.render();
     }
 
-    public void AddMemberAction() {
+    public void AddMemberAction() throws IOException {
+        AddEditMemberController addEditMemberController;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEditMember.fxml"));
 
+        Parent root = loader.load();
 
+        Scene scene = new Scene(root);
+        Stage addStage = new Stage();
+
+        addStage.setScene(scene);
+        addStage.show();
+
+        addEditMemberController = loader.getController();
+        addEditMemberController.stage = addStage;
+        addEditMemberController.columns = dbTable.getColumns();
+        addEditMemberController.dbmemberscontroller = this;
+        addEditMemberController.state = false;
+        addEditMemberController.render();
     }
 
-    public void extArrowAction() {
-        if (extArrow.getGlyphName() == "TRIANGLE_RIGHT") {
-            extArrow.setGlyphName("TRIANGLE_LEFT");
-            AnchorPane.setRightAnchor(sidePanel,-350.0);
-            AnchorPane.setRightAnchor(dbTable,15.0);
-
-
-
-        } else {
-
-            extArrow.setGlyphName("TRIANGLE_RIGHT");
-            AnchorPane.setRightAnchor(sidePanel,0.0);
-            AnchorPane.setRightAnchor(dbTable,365.0);
-
-
-
-        }
-
-
-    }
 
     public void exitAction() {
         Stage thisStage = (Stage) dbTable.getScene().getWindow();
@@ -119,16 +126,12 @@ public class DBMembersController {
             e.printStackTrace();
         }
         for (int i = 0; i < COLCOUNT; i++) {
-            dbTable.getColumns().add(new TableColumn<Map, Object>(ColNames[i]));
+            dbTable.getColumns().add(new TableColumn<>(ColNames[i]));
         }
         int forIndexOfCol = 0;
         for (TableColumn tc : dbTable.getColumns()) {
             tc.setCellValueFactory(new MapValueFactory(colKeys[forIndexOfCol]));
             forIndexOfCol++;
-        }
-
-        for (int i = 0; i < COLCOUNT; i++) {
-
         }
 
         dbTable.setItems(generateDataInMap());

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
     public Stage getPrimaryStage() {
@@ -21,9 +20,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("DBMembers.fxml"));
+        DBMembersController dbMembersController;
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DBMembers.fxml"));
+        Parent root = loader.load();
+        dbMembersController = loader.getController();
+        dbMembersController.stage = primaryStage;
         Scene scene = new Scene(root);
+
 
         primaryStage.setTitle("MYT");
         primaryStage.setScene(scene);
